@@ -7,6 +7,8 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QUrl>
+#include "iconloader.h"
+#include "iconprovider.h"
 #include <QDebug>
 
 int main(int argc, char** argv)
@@ -17,6 +19,10 @@ int main(int argc, char** argv)
     app.setQuitOnLastWindowClosed(true);
 
     QQmlApplicationEngine engine;
+
+    engine.addImageProvider(QStringLiteral("icons"), new IconProvider);
+    IconLoader iconLoader(&app);
+    engine.rootContext()->setContextProperty("_iconLoader", &iconLoader);
 
     // 加载 OPENUI 令牌 (共享自 OPENUI-desktop 资源)
     QQmlComponent token(&engine, QUrl(QStringLiteral("qrc:/qml/OpenUI.qml")));

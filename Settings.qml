@@ -25,12 +25,12 @@ Window {
             Column { anchors.fill: parent; anchors.topMargin: OpenUI.sp4
                 Repeater {
                     model: ListModel {
-                        ListElement { icon: "\u2699"; label: "外观" }
-                        ListElement { icon: "\uD83D"; label: "安全" }
-                        ListElement { icon: "\u2630"; label: "软件包" }
-                        ListElement { icon: "\u25A0"; label: "系统" }
-                        ListElement { icon: "\u263C"; label: "网络" }
-                        ListElement { icon: "\u25A2"; label: "隔离" }
+                        ListElement { icon: "preferences-desktop"; ctx: "Categories"; label: "外观" }
+                        ListElement { icon: "preferences-desktop-security"; ctx: "Apps"; label: "安全" }
+                        ListElement { icon: "system-software-install"; ctx: "Apps"; label: "软件包" }
+                        ListElement { icon: "applications-system"; ctx: "Categories"; label: "系统" }
+                        ListElement { icon: "preferences-system-network"; ctx: "Apps"; label: "网络" }
+                        ListElement { icon: "openos-vmapp"; ctx: "Apps"; label: "隔离" }
                     }
                     Rectangle {
                         width: 170; height: 40; radius: OpenUI.shapeXs
@@ -43,8 +43,9 @@ Window {
                                   : "transparent")
                         Row { anchors.fill: parent; anchors.leftMargin: OpenUI.sp4
                               spacing: OpenUI.sp2
-                            Text { width: 24; height: parent.height; verticalAlignment: Text.AlignVCenter
-                                   text: model.icon; color: OpenUI.primary; font.pixelSize: 15 }
+                            Item { width: 24; height: parent.height
+                                ThemedIcon { anchors.centerIn: parent; name: model.icon; ctx: model.ctx; size: 15; color: OpenUI.primary }
+                            }
                             Text { height: parent.height; verticalAlignment: Text.AlignVCenter
                                    text: model.label; color: OpenUI.onSurface
                                    font.pixelSize: OpenUI.typeLabelL }
@@ -78,7 +79,7 @@ Window {
             x: parent.width - 40; y: 8; width: 32; height: 32; radius: OpenUI.shapeXs
             color: hover.hovered ? Qt.rgba(OpenUI.error.r, OpenUI.error.g,
                                            OpenUI.error.b, 0.3) : "transparent"
-            Text { anchors.centerIn: parent; text: "\u2715"; color: OpenUI.onSurface }
+            ThemedIcon { anchors.centerIn: parent; name: "window-close"; ctx: "Actions"; size: 14; color: OpenUI.onSurface }
             MouseArea { id: hover; anchors.fill: parent; hoverEnabled: true
                 onClicked: settingsApp.close() }
         }
